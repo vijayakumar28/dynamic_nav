@@ -31,5 +31,12 @@
             </li>
         {% endfor %}
     </ul>
+    <!-- admin_panel.html -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create User</button>
+</form>
+
 </body>
 </html>
