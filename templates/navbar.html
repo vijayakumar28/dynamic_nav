@@ -1,0 +1,100 @@
+<!-- your_template.html -->
+<style>
+
+/* Sidebar Container */
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: #f4f4f4; /* Light gray background */
+    color: #333333; /* Dark gray text color */
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    overflow: hidden; /* Ensure no overflow */
+}
+
+/* Main Category Links */
+ul > li {
+    border-bottom: 1px solid #dddddd; /* Separator between items */
+}
+
+ul > li > a {
+    display: block;
+    text-decoration: none;
+    color: #333333; /* Dark gray text */
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+ul > li > a:hover {
+    background-color: #0078d7; /* Professional blue highlight */
+    color: #ffffff; /* White text on hover */
+}
+
+/* Subcategory Dropdown */
+ul > li .dropdown {
+    display: none; /* Initially hidden */
+    background-color: #e6e6e6; /* Subtle light gray background for dropdown */
+    padding-left: 15px;
+    margin: 0;
+    border-left: 3px solid #0078d7; /* Blue border for differentiation */
+}
+
+/* Subcategory Links */
+ul > li .dropdown > li > a {
+    text-decoration: none;
+    color: #555555; /* Medium gray text */
+    padding: 10px 20px;
+    display: block;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+ul > li .dropdown > li > a:hover {
+    background-color: #0078d7; /* Same hover highlight as main */
+    color: #ffffff;
+}
+
+/* Show Dropdown on Hover */
+ul > li:hover .dropdown {
+    display: block; /* Show dropdown */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    ul {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    ul > li > a {
+        padding: 10px;
+    }
+
+    ul > li .dropdown > li > a {
+        padding: 8px 15px;
+    }
+}
+
+
+</style>
+
+    <nav>
+        <ul>
+            {% for category in main_categories %}
+                <li>
+                    <a href="{{ category.url }}">{{ category.name }}</a>
+                    {% if category.subcategories.exists %}
+                        <ul>
+                            {% for subcategory in category.subcategories.all %}
+                                <li><a href="{{ subcategory.url }}">{{ subcategory.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
